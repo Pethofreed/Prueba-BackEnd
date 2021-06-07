@@ -46,4 +46,13 @@ module.exports = {
     fs.writeFileSync('src/students_list.json', data)
     res.status(200).json(student)
   },
+  viewAverage(req,res) {
+    const allNotes = []
+     jsonData.students.forEach(student => {
+       allNotes.push(student.note)
+     })
+     const accumulator = (accumulator, currentValue) => accumulator + currentValue
+     const average =  (allNotes.reduce(accumulator)) / allNotes.length
+     res.status(200).json(parseFloat(average.toFixed(2)))
+  },
 }
