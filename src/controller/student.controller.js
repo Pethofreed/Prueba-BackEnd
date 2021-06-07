@@ -63,4 +63,23 @@ module.exports = {
     }
     res.status(200).json(student)
   },
+  autoEvaluation(req,res) {
+    const { document, autoevaluation } = req.body
+    if(autoevaluation % 1 !== 0){
+      res.status(403).json('Su nota debe ser un número entero')
+    }
+    if(autoevaluation > 5){
+      res.status(403).json('La nota debe ser un número entre 0 y 5')
+    }
+    if(autoevaluation < 0){
+      res.status(403).json('La nota debe ser un número entre 0 y 5')
+    }
+    const student = jsonData.students.find(student => student.document === document)
+    const index = jsonData.students.indexOf(student)
+    student.autoevaluation = autoevaluation
+    jsonData.students.splice(index, 1, student)
+    let data = JSON.stringify(jsonData);
+    fs.writeFileSync('src/students_list.json', data)
+    res.status(200).json(student)
+  }
 }

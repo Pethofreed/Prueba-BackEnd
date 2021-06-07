@@ -8,5 +8,6 @@ router.route('/v1/students/getAlumns').get(authAdmin,studentController.viewAlumn
 router.route('/v1/students/note').post(authAdmin, studentController.addGrade)
 router.route('/v1/students/average').get(authAdmin,studentController.viewAverage)
 router.route('/v1/students/getAlumn').get(authAlumn, studentController.getAlumn)
+router.route('/v1/students/autoevaluation').post(authAlumn, studentController.autoEvaluation)
 
 module.exports = router
