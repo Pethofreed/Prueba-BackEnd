@@ -24,4 +24,26 @@ module.exports = {
   viewAlumns(req,res){
     res.status(200).json(jsonData)
   },
+  addGrade(req,res) {
+    const { document, note } = req.body
+    if(note % 1 !== 0){
+      res.status(403).json('Su nota debe ser un número entero')
+      return
+    }
+    if(note > 5){
+      res.status(403).json('La nota debe ser un número entre 0 y 5')
+      return
+    }
+    if(note < 0){
+      res.status(403).json('La nota debe ser un número entre 0 y 5')
+      return
+    }
+    const student = jsonData.students.find(student => student.document === document)
+    const index = jsonData.students.indexOf(student)
+    student.note = note
+    jsonData.students.splice(index, 1, student)
+    let data = JSON.stringify(jsonData);
+    fs.writeFileSync('src/students_list.json', data)
+    res.status(200).json(student)
+  },
 }
