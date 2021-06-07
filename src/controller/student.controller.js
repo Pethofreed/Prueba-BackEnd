@@ -55,4 +55,12 @@ module.exports = {
      const average =  (allNotes.reduce(accumulator)) / allNotes.length
      res.status(200).json(parseFloat(average.toFixed(2)))
   },
+  getAlumn(req,res) {
+    const { id } = req.body
+    const student = jsonData.students.find(student => student.id === id)
+    if(!student){
+      res.status(404).json(`No se encontraron resultados para el ID ingresado.`)
+    }
+    res.status(200).json(student)
+  },
 }
