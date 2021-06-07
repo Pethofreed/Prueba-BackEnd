@@ -21,4 +21,7 @@ module.exports = {
 
     res.status(201).json(newStudent)
   },
+  viewAlumns(req,res){
+    res.status(200).json(jsonData)
+  },
 }
